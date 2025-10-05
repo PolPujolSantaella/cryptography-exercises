@@ -1,0 +1,109 @@
+\documentclass[]{article}
+
+%opening
+\title{Cryptography Exercises}
+\author{Pol Pujol Santaella}
+\usepackage{amsmath}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\section{Introduction to Cryptography}
+\bigskip
+\textbf{1. What is the number of possible keys in the mono-alphabetic substitution cipher?} 
+
+\medskip
+\noindent 
+In a mono-alphabetic substitution cipher, each letter of the plain text is replaced by a unique letter of the ciphertext alphabet. Assuming standard English alphabet of 26 letters (A-Z), each key is a \textit{permutation} of the alphabet. The number of possible permutations of 26 letters is $26!$
+\begin{center}
+\textbf{Number of possible keys} $= \mathbf{26! \approx 4.03 \times 10^{26}}$
+\end{center}
+\bigskip
+\noindent \textbf{2. Decrypt the following ciphertext using the shift cipher (key is 4). \\ 
+\begin{center}
+	IPPMTXMG GYVZI
+\end{center} }
+
+\medskip
+
+\noindent 
+First of all we have to map letters to numbers $A = 0, B = 1,..., Z=25$ 
+\medskip
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline
+		I & P & M & T & X & G & Y & V & Z \\
+		\hline
+		8 & 15 & 12 & 19 & 23 & 6 & 24 & 21 & 25 \\
+		\hline
+	\end{tabular}
+\end{center}
+To decrypt that message using a shift cipher with a key of 4, we have to know the strategy of cipher decryption:
+\begin{center}
+	$P_i = (C_i - k) \bmod 26$
+\end{center}
+Where $P_i$ is the plaintext letter, $C_i$ is the ciphertext letter, and \textit{k} is the shift key.
+\medskip
+\begin{center}
+I: $P_0 = (8 - 4) \bmod 26 = 4 = E$ \\
+P: $P_1 = (15 - 4) \bmod 26 = 11 = L$ \\
+...
+
+\textbf{The decrypted message is: ELLIPTIC CURVE}
+\end{center}
+\newpage
+\bigskip
+\noindent
+\textbf{7. It is thought that cryptography was present in Islamic culture since, at least, the start of the Abbasid caliphate (VII century). It is known that, at that time, Al-Khalil ibn Ahmad al-Farahidi wrote a book called "Kitab al-Muamma" (Book of Cryptographic Messages), which is considered to be lost. Later, in the IX century, Al-Kindi described a way to break subsitution ciphers, which were popular at that time. He described the frequency attack discussed in Unit 1 as follows. Finde more details in Sin99.} 
+
+\medskip
+
+\noindent
+\textit{One way to solve an encrypted message, if we know its language, is to find a different plaintext of the same language long enough to fill one sheet or so, and then we count the occurrences of each letter. We call the most frequently occurring letter the "first", the next most occurring letter the "second", the following most occurring letter the "third", and so on, until we account for all the different letters in the plaintext sample. Then we look at the cipher text we want to solve and we also classify its symbols. We finde the most occurring symbol and change it to the form of the "first" letter of the plaintext sample, the next most common symbol is changed to the form of the "second" letter, and the following most common symbol is changed to the form of the "third" letter, and so on, until we account for all symbols of the cryptogram we want to solve.} 
+
+\medskip \noindent
+\textbf{This method does not always work, because the frequency of letters in the text cannot be exactly the same as the one of the language. Give an algorithm that, following the spirit of this attack, generates the text that are more likely to be the plaintext.}
+
+\medskip \noindent
+We have to design an algorithm that, given a substitution-cipher text and a language model (frequencies), produces candidate plaintexts ranked by likelihood -- following Al-Kindi's idea but using statistical scoring and heuristic search. \\
+
+\noindent \textbf{We Assume:} 
+\begin{itemize}
+	\item English Alphabet, 26 uppercase letters.
+	\item Cipher is a mono-alphabetic substitution (a permutation)
+	\item We have a reference language model (letter frequency)
+	\item Ciphertext is long. Short texts make stats noisy.
+\end{itemize} 
+\textbf{Strategy:}
+\begin{enumerate}
+	\item Create an initial key by rank-matching letter frequencies (Al-Kindi style)
+	\item Define a scoring function that measures how "English-like" a candidate plaintext is -- e.g. sum of log n-gram probabilities plus a word-match bonus.
+	\item Use a heuristic search (hill-climbing with random restarts or simulated annealing / genetic algorithm) to explore permutations by swapping letter mapping to maximize the score.
+	\item Output top-K candidate plaintexts and check with dictionary/word matches for verification.
+\end{enumerate}
+\textbf{Algorithm:} \\
+function 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
