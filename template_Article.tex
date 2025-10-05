@@ -4,10 +4,16 @@
 \title{Cryptography Exercises}
 \author{Pol Pujol Santaella}
 \usepackage{amsmath}
+\usepackage{graphicx}
+\numberwithin{figure}{section}
+
+
 
 \begin{document}
 
 \maketitle
+\newpage
+\tableofcontents
 
 \newpage
 \section{Introduction to Cryptography}
@@ -54,6 +60,75 @@ P: $P_1 = (15 - 4) \bmod 26 = 11 = L$ \\
 \textbf{The decrypted message is: ELLIPTIC CURVE}
 \end{center}
 \newpage
+\noindent
+\textbf{3. The following ciphertext has been encrypted using shift cipher.}
+\begin{center}
+	FTUE EOTQYQ UE ZAF EQOGDQ
+\end{center}
+\indent
+Figure 1.1. shows the frequency distribution of the letter in the English alphabet. Use this table to guess which is the encryption key, and decrypt the message.
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		a & b & c & d & e & f & g & h & i & j & k & l & m \\
+		\hline
+		8.05 & 1.62 & 3.2 & 3.65 & 12.31 & 2.28 & 1.61 & 5.14 & 7.18 & 0.1 & 0.52 & 4.03 & 2.25 \\
+		\hline
+	\end{tabular}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		n & o & p & q & r & s & t & u & v & w & x & y & z \\
+		\hline
+		7.19 & 7.94 & 2.29 & 0.20 & 6.03 & 6.59 & 9.59 & 3.1 & 0.93 & 2.03 & 0.2 & 1.88 & 0.09 \\
+		\hline
+	\end{tabular}
+	\caption{Frequency distribution of English letters}
+	\label{fig:mi_figura}
+\end{figure}
+
+\medskip
+
+\noindent
+To decrypt a shift cipher ciphertext using English letter frequencies to guess the key, we have to know de Shift cipher formula:\\
+\begin{center}
+	$C = (P + k) \bmod 26, P = (C - k) \bmod 26$
+\end{center}
+The strategy is to count letter frequency in the ciphertext, compare the most frequent ciphertext letter to the most frequent letter in English and estimate the shift key:\\
+\begin{center}
+	$k = (C_{\text{freq}} - P_{\text{freq}}) \bmod 26$
+\end{center}
+Then we can decrypt using this key and verify readability of the resulting plaintext; adjust key if necessary. \\
+
+1. Count letters of ciphertext:
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		E & Q & F & T & U & O & Z & A & Y & G & D \\
+		\hline
+		4 & 4 & 2 & 2 & 2 & 2 & 1 & 1 & 1 & 1 & 1 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+2. Guess key.Try mapping most frequent ciphertext letter Q with plaintext E:
+\begin{center}
+	$Q = 16, E = 4$ \\
+	$k = (16 - 4) \bmod 26 = 12$
+\end{center}
+
+3. Decrypt ciphertext with the key.
+\begin{center}
+	$F = 5, (5 - 12) \bmod 26 = 19 = T$ \\
+	$T = 19, (19 - 12) \bmod 26 = 7 = H$ \\
+	...
+\end{center}
+
+4. You will obtain the plaintext: 
+\begin{center}
+	\textbf{THIS SCHEME IS NOT SECURE}
+\end{center}
+\newpage
 \bigskip
 \noindent
 \textbf{7. It is thought that cryptography was present in Islamic culture since, at least, the start of the Abbasid caliphate (VII century). It is known that, at that time, Al-Khalil ibn Ahmad al-Farahidi wrote a book called "Kitab al-Muamma" (Book of Cryptographic Messages), which is considered to be lost. Later, in the IX century, Al-Kindi described a way to break subsitution ciphers, which were popular at that time. He described the frequency attack discussed in Unit 1 as follows. Finde more details in Sin99.} 
@@ -85,7 +160,6 @@ We have to design an algorithm that, given a substitution-cipher text and a lang
 \end{enumerate}
 \textbf{Algorithm:} \\
 function 
-
 
 
 
