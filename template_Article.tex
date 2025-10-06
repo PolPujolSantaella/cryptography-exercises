@@ -6,7 +6,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \numberwithin{figure}{section}
-
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 
 \begin{document}
@@ -111,7 +112,8 @@ Then we can decrypt using this key and verify readability of the resulting plain
 	\end{tabular}
 \end{center}
 
-2. Guess key.Try mapping most frequent ciphertext letter Q with plaintext E:
+
+2. Try mapping most frequent ciphertext letter Q with plaintext E:
 \begin{center}
 	$Q = 16, E = 4$ \\
 	$k = (16 - 4) \bmod 26 = 12$
@@ -128,6 +130,33 @@ Then we can decrypt using this key and verify readability of the resulting plain
 \begin{center}
 	\textbf{THIS SCHEME IS NOT SECURE}
 \end{center}
+\newpage
+
+\noindent \textbf{4. How would you define "perfect secrecy" in a formal way? (Discussed in Unit 3).} \\
+\textit{Perfect Secrecy} is a fundamental concept in information theoretic cryptography. \\
+Let:
+\begin{itemize}
+	\item M be the random variable representing plaintext message
+	\item C be the random variable respresenting the ciphertext.
+	\item K be the random variable representing the key.
+\end{itemize} 
+Perfect Screcy is when we observe that ciphertext C = c gives no information about the plaintext M.\\
+So formally a system that achieves perfect secrecy is:
+\begin{center}
+	$P(M | C) = P(M)$
+\end{center}
+For example: The One-Time Pad satisfies this condition when the key K is uniformly random, used only once, and as long as the message.
+
+\bigskip 
+\noindent
+\textbf{5. In the slide "two notions of security", we talk about two equivalent ways to prove the security of the scheme. Explain why the two wats are equivalent, i.e., what is the logic law we are using.} \\ \\
+The logic law we are using here is the \textit{contrapositive} law, which says that the 2 statements \textit{"If A then B" and "If not B then not A"} are equivalent.
+
+\bigskip
+
+\noindent \textbf{6. How would you define "computational security" in a formal way? (Discussed in Unit 3.)} \\ \\
+We define a cryptosystem as computationally secure if no probabilistic polynomial-time (PPT) adversary can gain a non-negligible advantatge in breaking it.
+
 \newpage
 \bigskip
 \noindent
@@ -147,7 +176,6 @@ We have to design an algorithm that, given a substitution-cipher text and a lang
 \noindent \textbf{We Assume:} 
 \begin{itemize}
 	\item English Alphabet, 26 uppercase letters.
-	\item Cipher is a mono-alphabetic substitution (a permutation)
 	\item We have a reference language model (letter frequency)
 	\item Ciphertext is long. Short texts make stats noisy.
 \end{itemize} 
@@ -158,8 +186,60 @@ We have to design an algorithm that, given a substitution-cipher text and a lang
 	\item Use a heuristic search (hill-climbing with random restarts or simulated annealing / genetic algorithm) to explore permutations by swapping letter mapping to maximize the score.
 	\item Output top-K candidate plaintexts and check with dictionary/word matches for verification.
 \end{enumerate}
-\textbf{Algorithm:} \\
-function 
+\begin{algorithm}
+	\caption{}
+	\begin{algorithmic}
+		\STATE \textbf{Input:} C: ciphertext, r: restarts, iters: iterations
+		\STATE \textbf{Output:} Plaintext with max score.
+		\STATE Initialize $bestPlain \gets inf$
+		\STATE Initialize $bestScore \gets inf$
+		\FOR{$i = 1$ to range($r$)}
+			\IF{$r == 0$}
+				\STATE $key$ = initialKeyFreq($C$)
+			\ELSE 
+				\STATE $key$ = randomKey() 
+			\ENDIF
+			\STATE $currentPlain$ = Decrypt(C, key)
+			\STATE $currentScore$ = scoreFunction($currentPlain$)
+			\STATE $improved$ = True  
+			\STATE $it = 0$
+			\WHILE{$it < iters$ and $improved$}
+				\STATE $improved$ = False 
+				\STATE $it += 1$
+				\FOR {? in range(200):}
+					\STATE $a, b$ = randomSample(alphabet, 2)
+					\STATE $key2$ = key.Copy()
+					\STATE Tranpose(a, b, key2) // Transpose 2 selected letters of key2
+					\STATE $plain2$ = Decrypt(C, key2)
+					\STATE $score2$ = scoreFunction(plain2)
+					\IF{$score2$ > $currentScore$}
+						\STATE $key$ = $key2$
+						\STATE $currentPlain$ = $plain2$
+						\STATE $currentScore$ = $score2$
+						\STATE $improved$ = True
+						break
+					\ENDIF
+				\ENDFOR
+			\ENDWHILE
+			\IF{$currentScore$ > $bestScore$}
+				\STATE $bestScore$ = $currentScore$
+				\STATE $bestPlain$ = $currentPlain$
+			\ENDIF
+		\ENDFOR
+		\RETURN $bestPlain$, $bestScore$
+	\end{algorithmic}
+\end{algorithm}
+
+\newpage
+
+\section{Mathematical Backgorund}
+
+\textbf{1. Computation of probabilities. \\ \\
+	\indent A) Coun tossing: Associate Heads to 0, and Tails to 1. Compute the probability that the output is '1' when tossing a coin. Compute the probability that the output is '101' after tossing the coin three times. \\ \\
+	\indent B) Dice rolling: Compute the probability that the output is '2', and the probability that the output is 'even'.}
+	
+
+
 
 
 
