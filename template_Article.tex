@@ -85,7 +85,6 @@ Figure 1.1. shows the frequency distribution of the letter in the English alphab
 		\hline
 	\end{tabular}
 	\caption{Frequency distribution of English letters}
-	\label{fig:mi_figura}
 \end{figure}
 
 \medskip
@@ -231,9 +230,59 @@ We have to design an algorithm that, given a substitution-cipher text and a lang
 \end{algorithm}
 
 \newpage
+\textbf{9. The development of cryptoanalysis tecchniques that study the frequency of letters motivated more involved cryptosystems that can be considered variants of the substitution sipher. This is the case of the scheme}
 
-\section{Mathematical Backgorund}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figureEx9.png}
+	\caption{Photo of Risala fi Istikhraj al-Kutub al-Mu’ammah (On Extracting Obscured Correspondence) by Al-Kindi, from Wikipedia}
+\end{figure}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figure9_2.png}
+	\caption{ Document from https://www.ugr.es/~aquiran/cripto/museo/gce01.htm}
+\end{figure}
+
+\noindent \textbf{used by Diego Sarmiento de Acuña, Conde de Gondomar and Felipe III, king of Spain, Portugal and other regions, at the beginning of the XVII century. Diego Sarmiento de Acuña was a kind of Spanish ambassador in London, and he needed to send (and receive) confidential messages to the king. They used the following tricks to reduce the effect of frequency analysis, which are described in the picture presented below.}
+\begin{enumerate}
+	\item \textbf{Each letter had two possible symbols, while vowels had four.}
+	\item \textbf{Some frequent pairs of letter had specific symbols}
+	\item \textbf{Some signs were used to modify the decrypted message. In particular, there was a sign to indicate that part of the text was dummy.}
+\end{enumerate}
+\textbf{The following questions are about ciphers with the properties described above.
+}
+\begin{enumerate}
+	\item \textbf{Compute the number of possible keys for the substitution ciphers satisfying (1).}
+	\item \textbf{Discuss the use of subtitution ciphers satisfying (1) and (2) with respect ciphers satisfying only (1).}
+	\item \textbf{Discuss the utility of (3), in addition to (1) and (2).}
+	\item \textbf{Suggest situation in which the use of signs like the ones in (4) can make statistical attacks harder.}
+\end{enumerate}
+
+Given a historical scheme with these properties (applied to the 26-letter English alphabet):
+
+\begin{enumerate}
+	\item Each consonant has 2 possible cipher symbols, each vowel has 4 possible cipher symbols
+	\item some frequent letter-pairs (digraphs) are represented by single special symbols
+	\item special signs can modify the interpretation of subsequent text (e.g., mark a segment as dummy / null)
+\end{enumerate}
+
+\noindent 
+1) Number of possible keys (case (1) only)\\
+There are 26 distinct plaintext letters. Assume vowels = 5 (A, E, I, O, U) and consonants = 21. The scheme assigns to each consonant exactly 2 distinc cipher symbols, and to each vowel exactly 4 distinct cipher symbols. \\
+
+\begin{center}
+	$S = 21 \times 2 + 5 \times 4 = 42 + 20 = 62$
+\end{center}
+
+
+
+
+
+
+
+\newpage
+\section{Mathematical Background}
 \textbf{1. Computation of probabilities. \\ \\
 	\indent A) Coun tossing: Associate Heads to 0, and Tails to 1. Compute the probability that the output is '1' when tossing a coin. Compute the probability that the output is '101' after tossing the coin three times. \\ \\
 	\indent B) Dice rolling: Compute the probability that the output is '2', and the probability that the output is 'even'.}
